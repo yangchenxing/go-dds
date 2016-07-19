@@ -1,0 +1,25 @@
+syntax = "proto3"
+
+package "protocol";
+
+enum BlockError {
+    MissBlock      = 0;
+    UnknownVersion = 1;
+}
+
+message BlockRequest {
+    string file       = 1;
+    string version    = 2;
+    uint32 block_size = 3;
+    uint32 blocks     = 4;
+}
+
+message BlockResponse {
+    bool       success = 1;
+    bytes      content = 2;
+    BlockError error   = 3;
+}
+
+service DataDistrbuiteClientService {
+    rpc GetBlock (BlockRequest) returns (BlockResponse)
+}
